@@ -2,6 +2,6 @@
 "type": "FeatureCollection",
 "name": "nh",
 "features": [
-{ "type": "Feature", "properties": { "Site": "Nature House", "Details": "GWAS officially he Gorge Waterway Nature House" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -123.4066377, 48.4462446 ], [ -123.4064073, 48.4461638 ], [ -123.4064073, 48.4461638 ], [ -123.4063513, 48.4462446 ], [ -123.406585, 48.4463232 ], [ -123.4066377, 48.4462446 ] ] ] } }
+{ "type": "Feature", "properties": { "Site": "Nature House", "Details": "The Nature House is open seven days a week, run by both staff and volunteers. The Nature House offers environmental education, outreach and activities for audiences of all ages." }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -123.4066377, 48.4462446 ], [ -123.4064073, 48.4461638 ], [ -123.4064073, 48.4461638 ], [ -123.4063513, 48.4462446 ], [ -123.406585, 48.4463232 ], [ -123.4066377, 48.4462446 ] ] ] } }
 ]
 }
