@@ -9,51 +9,87 @@
 <style>
 body { margin: 0; padding: 0; }
 #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+  .mapboxgl-popup {
+        max-width: 400px;
+        font:
+            12px/20px 'Helvetica Neue',
+            Arial,
+            Helvetica,
+            sans-serif;
+      }
+
+      .mapboxgl-ctrl-scale {
+            font-size: 15px; 
+            padding: 8px; 
+        }
+
+      .mapboxgl-ctrl-top-right {
+        top: 545px !important; 
+        right: 2px !important;
+      }
+      .mapboxgl-ctrl-group button {
+        width: 40px; 
+        height: 40px; 
+      }
 </style>
 </head>
 <body>
-<div id="map"></div>
+  <div id="button"></div>
+  <div id="map"></div>
 <script>
 	mapboxgl.accessToken = 'pk.eyJ1IjoibGl6bWNjbGVhcnkiLCJhIjoiY203dXJvbG8zMDQxcTJqb2RobWJrb29rZiJ9.EXEp4Zxzb90S3p3977Pnfw';
     const map = new mapboxgl.Map({
         container: 'map', 
-        center: [-123.407, 48.450],
-        zoom: 10
+        center: [-123.406, 48.446],
+        zoom: 17
     });
+  
+      const scale = new mapboxgl.ScaleControl({
+        maxWidth: 80,
+        unit: 'imperial'
+      });
+      
+      map.addControl(scale);
+
+      scale.setUnit('metric');
+      
+      // Add Find My Location to map 
+      map.addControl(new mapboxgl.NavigationControl());
+  
   map.on('load', () => {
         map.addSource('resto_sites', {
-            'type': 'fill',
-            'url': 'https://raw.githubusercontent.com/gorgewaterway/restoration_map/refs/heads/main/resto_sites.geojson'
+            type: 'geojson',
+            data: 'https://raw.githubusercontent.com/gorgewaterway/restoration_map/refs/heads/main/resto_sites.geojson'
         });
         map.addLayer({
-            'id': 'resto_sites',
-            'source': 'resto_sites',
-            'type': 'fill', 
-            'paint': {
-            'fill-color': '#FFB6C1',
-            'fill-outline-color': '#FFB6C1',
-            'fill-opacity': 0.40
+            id: 'resto_sites',
+            source: 'resto_sites',
+            type: 'fill', 
+            paint: {
+            'fill-color': '#A47DAB',
+            'fill-outline-color': '#D3D3D3',
+            'fill-opacity': 0.70
                 }
         });
 
          map.addSource('nature_house', {
-            'type': 'fill',
-            'url': 'https://raw.githubusercontent.com/gorgewaterway/restoration_map/refs/heads/main/nh.geojson'
+            type: 'geojson',
+            data: 'https://raw.githubusercontent.com/gorgewaterway/restoration_map/refs/heads/main/nh.geojson'
         });
         map.addLayer({
-            'id': 'nature_house',
-            'source': 'nature_house',
-            'type': 'fill', 
-            'paint': {
-            'fill-color': '#FFB6C1',
-            'fill-outline-color': '#FFB6C1',
-            'fill-opacity': 0.40
+            id: 'nature_house',
+            source: 'nature_house',
+            type: 'fill', 
+            paint: {
+            'fill-color': '#FFDB58',
+            'fill-outline-color': '#D3D3D3',
+            'fill-opacity': 0.70
                 }
         });
 
      // Add popup click event
         map.on('click', 'resto_sites', (e) => {
-        const coordinates = e.features[0].geometry.coordinates.slice();
+        const coordinates = e.lngLat;
         const properties = e.features[0].properties;
 
         // Add popups to point layer 
@@ -72,10 +108,14 @@ body { margin: 0; padding: 0; }
         map.on('mouseleave', 'resto_sites', () => {
         map.getCanvas().style.cursor = '';
         });
+    
+    map.on('click', 'nature_house', (e) => {
+        const coordinates = e.lngLat;
+        const properties = e.features[0].properties;
 
         new mapboxgl.Popup()
           .setLngLat(coordinates)
-          .setHTML(`<strong>Site Name:</strong> ${properties.Site}`)
+          .setHTML(`<strong>Site Name:</strong> ${properties.Site}<br><strong>Description: </strong>${properties.Details}`)
           .addTo(map);
         });
 
@@ -88,6 +128,8 @@ body { margin: 0; padding: 0; }
         map.on('mouseleave', 'nature_house', () => {
         map.getCanvas().style.cursor = '';
         });
+  }); 
+    
 </script>
 
 </body>
