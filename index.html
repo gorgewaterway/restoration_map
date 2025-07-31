@@ -34,8 +34,8 @@ body { margin: 0; padding: 0; }
 </style>
 </head>
 <body>
-  <div id="map"></div>
   <div id="button"></div>
+  <div id="map"></div>
 <script>
 	mapboxgl.accessToken = 'pk.eyJ1IjoibGl6bWNjbGVhcnkiLCJhIjoiY203dXJvbG8zMDQxcTJqb2RobWJrb29rZiJ9.EXEp4Zxzb90S3p3977Pnfw';
     const map = new mapboxgl.Map({
@@ -48,7 +48,6 @@ body { margin: 0; padding: 0; }
         maxWidth: 80,
         unit: 'imperial'
       });
-      map.addNavigation(); 
 	
       map.addControl(scale);
       scale.setUnit('metric');
